@@ -24,7 +24,7 @@ public class MqttConnectionConfig extends jmri.jmrix.AbstractNetworkConnectionCo
     }
 
     @Override
-    protected void setInstance() {
+    public void setInstance() {
         if (adapter == null) {
             adapter = new MqttAdapter();
             adapter.setPort(1883);

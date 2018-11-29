@@ -82,7 +82,7 @@ public class ConnectionLabelTest {
             }
 
             @Override
-            protected void setInstance() {
+            public void setInstance() {
             }
 
             @Override

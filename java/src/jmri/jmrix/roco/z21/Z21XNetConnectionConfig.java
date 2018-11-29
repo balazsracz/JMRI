@@ -49,7 +49,7 @@ public class Z21XNetConnectionConfig extends jmri.jmrix.AbstractStreamConnection
     }
 
     @Override
-    protected void setInstance() {
+    public void setInstance() {
        log.error("Unexpected call to setInstance");
     }
 

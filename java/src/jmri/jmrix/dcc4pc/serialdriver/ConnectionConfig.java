@@ -33,7 +33,7 @@ public class ConnectionConfig extends jmri.jmrix.AbstractSerialConnectionConfig 
     }
 
     @Override
-    protected void setInstance() {
+    public void setInstance() {
         adapter = SerialDriverAdapter.instance();
     }
 }

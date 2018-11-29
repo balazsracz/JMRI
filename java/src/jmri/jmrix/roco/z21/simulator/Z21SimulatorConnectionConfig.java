@@ -37,7 +37,7 @@ public class Z21SimulatorConnectionConfig extends jmri.jmrix.roco.z21.Connection
     }
 
     @Override
-    protected void setInstance() {
+    public void setInstance() {
         if (adapter == null) {
             adapter = new Z21SimulatorAdapter();
         }

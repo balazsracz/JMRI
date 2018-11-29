@@ -37,7 +37,7 @@ public class MergConnectionConfig extends ConnectionConfig {
     }
 
     @Override
-    protected void setInstance() {
+    public void setInstance() {
         if (adapter == null) {
             adapter = new MergNetworkDriverAdapter();
             adapter.setPort(5550);

@@ -53,7 +53,7 @@ public class AnymaDMX_ConnectionConfig extends AbstractUsbConnectionConfig {
      * {@inheritDoc}
      */
     @Override
-    protected void setInstance() {
+    public void setInstance() {
         log.debug("*    setInstance()");
         if (adapter == null) {
             adapter = new AnymaDMX_UsbPortAdapter();

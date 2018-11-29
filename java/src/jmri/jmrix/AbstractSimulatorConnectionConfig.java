@@ -142,7 +142,7 @@ abstract public class AbstractSimulatorConnectionConfig extends AbstractConnecti
      * <i>unless</I> it's already been set.
      */
     @Override
-    abstract protected void setInstance();
+    abstract public void setInstance();
 
     /**
      * {@inheritDoc}

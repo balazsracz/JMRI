@@ -48,7 +48,13 @@ public interface ConnectionConfig {
      * </ul>
      */
     public void register();
-    
+
+    /**
+     * Load the adapter with an appropriate object
+     * <i>unless</I> its already been set.
+     */
+    public void setInstance();
+
     /** 
      * Done with this ConnectionConfig object.
      * Invoked in {@link JmrixConfigPane} when switching

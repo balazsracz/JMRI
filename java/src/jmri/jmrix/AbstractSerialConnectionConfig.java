@@ -181,7 +181,7 @@ abstract public class AbstractSerialConnectionConfig extends AbstractConnectionC
      * <i>unless</I> its already been set.
      */
     @Override
-    abstract protected void setInstance();
+    abstract public void setInstance();
 
     @Override
     public String getInfo() {

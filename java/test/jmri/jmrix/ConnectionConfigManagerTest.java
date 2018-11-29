@@ -247,7 +247,7 @@ public class ConnectionConfigManagerTest {
     private static class TestConnectionConfig extends AbstractSimulatorConnectionConfig {
 
         @Override
-        protected void setInstance() {
+        public void setInstance() {
             // do nothing
         }
 

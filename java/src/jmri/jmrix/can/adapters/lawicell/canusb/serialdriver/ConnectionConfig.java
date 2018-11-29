@@ -37,7 +37,7 @@ public class ConnectionConfig extends jmri.jmrix.can.adapters.ConnectionConfig {
     }
 
     @Override
-    protected void setInstance() {
+    public void setInstance() {
         if (adapter == null) {
             adapter = new CanUsbDriverAdapter();
         }

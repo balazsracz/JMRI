@@ -42,7 +42,7 @@ public class ConnectionConfig extends jmri.jmrix.AbstractNetworkConnectionConfig
     }
 
     @Override
-    protected void setInstance() {
+    public void setInstance() {
         if (adapter == null) {
             adapter = new DCCppTcpDriverAdapter();
             adapter.setPort(DCCppConstants.DCCPP_OVER_TCP_PORT); // TODO: Choose another port?

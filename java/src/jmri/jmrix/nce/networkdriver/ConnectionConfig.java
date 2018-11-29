@@ -35,7 +35,7 @@ public class ConnectionConfig extends jmri.jmrix.AbstractNetworkConnectionConfig
     // public String getManufacturer() { return manufacturerName; }
     // public void setManufacturer(String manu) { manufacturerName=manu; }
     @Override
-    protected void setInstance() {
+    public void setInstance() {
         if (adapter == null) {
             adapter = new NetworkDriverAdapter();
         }

@@ -42,7 +42,7 @@ public class ConnectionConfig extends jmri.jmrix.lenz.AbstractXNetSerialConnecti
     }
 
     @Override
-    protected void setInstance() {
+    public void setInstance() {
         if (adapter == null) {
             adapter = new LIUSBAdapter();
         }

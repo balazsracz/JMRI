@@ -36,7 +36,7 @@ public class ConnectionConfig extends jmri.jmrix.AbstractNetworkConnectionConfig
     }
 
     @Override
-    protected void setInstance() {
+    public void setInstance() {
         if (adapter == null) {
             adapter = new LnTcpDriverAdapter();
             adapter.setPort(1234);

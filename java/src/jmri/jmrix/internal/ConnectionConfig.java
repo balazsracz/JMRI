@@ -34,7 +34,7 @@ public class ConnectionConfig extends AbstractSimulatorConnectionConfig {
 //    }
 
     @Override
-    protected void setInstance() {
+    public void setInstance() {
         if (adapter == null) {
             adapter = new InternalAdapter();
         }

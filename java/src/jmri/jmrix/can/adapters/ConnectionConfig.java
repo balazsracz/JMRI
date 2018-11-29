@@ -99,6 +99,6 @@ abstract public class ConnectionConfig extends jmri.jmrix.AbstractSerialConnecti
     }
 
     @Override
-    abstract protected void setInstance(); // necessary to get right type
+    abstract public void setInstance(); // necessary to get right type
 
 }

@@ -128,7 +128,7 @@ public class RaspberryPiConnectionConfig extends jmri.jmrix.AbstractConnectionCo
     }
 
     @Override
-    protected void setInstance() {
+    public void setInstance() {
         if (adapter == null) {
             adapter = new RaspberryPiAdapter();
         }

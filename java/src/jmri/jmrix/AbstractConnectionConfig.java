@@ -175,7 +175,7 @@ abstract public class AbstractConnectionConfig implements ConnectionConfig {
      * Load the adapter with an appropriate object
      * <i>unless</I> its already been set.
      */
-    abstract protected void setInstance();
+    abstract public void setInstance();
 
     @Override
     abstract public String getInfo();

@@ -59,7 +59,7 @@ public class ConnectionConfig extends jmri.jmrix.AbstractNetworkConnectionConfig
      * <i>unless</i> it has already been set.
      */
     @Override
-    protected void setInstance() {
+    public void setInstance() {
         if (adapter == null) {
             adapter = new XnTcpAdapter();
         }

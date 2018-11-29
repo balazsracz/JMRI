@@ -42,7 +42,7 @@ public class ConnectionConfig extends jmri.jmrix.AbstractSimulatorConnectionConf
     }
 
     @Override
-    protected void setInstance() {
+    public void setInstance() {
         if (adapter == null) {
             adapter = new SimulatorAdapter();
         }

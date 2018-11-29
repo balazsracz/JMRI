@@ -268,7 +268,7 @@ abstract public class AbstractNetworkConnectionConfig extends AbstractConnection
      * <i>unless</I> its already been set.
      */
     @Override
-    abstract protected void setInstance();
+    abstract public void setInstance();
 
     @Override
     public String getInfo() {
