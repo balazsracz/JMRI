@@ -29,7 +29,7 @@ abstract public class AbstractSerialConnectionConfigXmlTestBase extends Abstract
         validateConnectionDetails(cc,e);
     }
 
-    @Test(timeout=5000)
+    @Test
     @Override
     public void loadTest() throws jmri.configurexml.JmriConfigureXmlException {
         Assume.assumeNotNull(cc);
