@@ -39,7 +39,8 @@ abstract public class AbstractSerialConnectionConfigXmlTestBase extends Abstract
         jmri.util.JUnitUtil.resetProfileManager();
         // This test requires a configure manager.
         jmri.util.JUnitUtil.initConfigureManager();
-        ThreadingUtil.runOnLayout(() -> {cc.loadDetails(new JPanel());});
+        ThreadingUtil.runOnLayout(() -> {});
+        cc.loadDetails(new JPanel());
         // load details MAY produce an error message if no ports are found.
         jmri.util.JUnitAppender.suppressErrorMessage("No usable ports returned");
         cc.setDisabled(true); // so we don't try to start the connection on load.
