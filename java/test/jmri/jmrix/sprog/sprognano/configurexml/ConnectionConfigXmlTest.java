@@ -23,6 +23,7 @@ public class ConnectionConfigXmlTest extends jmri.jmrix.configurexml.AbstractSer
 
     @After
     public void tearDown() {
+        new org.netbeans.jemmy.QueueTool().waitEmpty(20);
         JUnitUtil.tearDown();
         xmlAdapter = null;
         cc = null;
