@@ -128,6 +128,7 @@ abstract public class SystemConnectionMemo extends Bean {
      */
     public final boolean setUserName(@Nonnull String userName) {
         Objects.requireNonNull(userName);
+        new Exception("Thread id " + Thread.currentThread().getId()).printStackTrace();
         if (userName.equals(this.userName)) {
             if (this.userNameAsLoaded == null) {
                 this.userNameAsLoaded = userName;

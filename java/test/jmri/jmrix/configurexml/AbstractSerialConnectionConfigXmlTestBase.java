@@ -16,6 +16,7 @@ abstract public class AbstractSerialConnectionConfigXmlTestBase extends Abstract
     @Test
     @Override
     public void storeTest(){
+        System.err.println("======== StoreTest start");
         Assume.assumeNotNull(cc);
         cc.loadDetails(new JPanel());
         // load details MAY produce an error message if no ports are found.
@@ -27,11 +28,13 @@ abstract public class AbstractSerialConnectionConfigXmlTestBase extends Abstract
         }
         validateCommonDetails(cc,e);
         validateConnectionDetails(cc,e);
+        System.err.println("======== StoreTest end");
     }
 
     @Test(timeout=5000)
     @Override
     public void loadTest() throws jmri.configurexml.JmriConfigureXmlException {
+        System.err.println("======== LoadTest start");
         Assume.assumeNotNull(cc);
         // reset the profile manager for this test, so it can run independently.
         jmri.util.JUnitUtil.resetProfileManager();
@@ -44,6 +47,7 @@ abstract public class AbstractSerialConnectionConfigXmlTestBase extends Abstract
         Element e = xmlAdapter.store(cc);
         //load what we just produced.
         xmlAdapter.load(e,e);
+        System.err.println("======== LoadTest end");
     }
 
     /**
