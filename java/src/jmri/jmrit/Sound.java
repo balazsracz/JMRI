@@ -46,6 +46,7 @@ public class Sound {
     private AtomicReference<Clip> clipRef = new AtomicReference<>();
     private boolean autoClose = true;
     private final static Logger log = LoggerFactory.getLogger(Sound.class);
+    public static boolean killSound = true;
 
     /**
      * Create a Sound object using the media file at path
@@ -174,6 +175,9 @@ public class Sound {
      * Play the sound once.
      */
     public void play() {
+        if (killSound) {
+            return;
+        }
         if (streaming) {
             Runnable streamSound = new StreamingSound(this.url);
             Thread tStream = new Thread(streamSound);
@@ -206,6 +210,10 @@ public class Sound {
      * @param count the number of times to loop
      */
     public void loop(int count) {
+        if (killSound) {
+            return;
+        }
+
         if (streaming) {
             log.warn("Streaming this audio file, loop() not allowed");
         } else {
@@ -225,6 +233,10 @@ public class Sound {
      * Stop playing a loop.
      */
     public void stop() {
+        if (killSound) {
+            return;
+        }
+
         if (streaming) {
             streamingStop = true;
         } else {
@@ -254,6 +266,9 @@ public class Sound {
      * @param wavData data to play
      */
     public static void playSoundBuffer(byte[] wavData) {
+        if (killSound) {
+            return;
+        }
 
         // get characteristics from buffer
         float sampleRate = 11200.0f;
