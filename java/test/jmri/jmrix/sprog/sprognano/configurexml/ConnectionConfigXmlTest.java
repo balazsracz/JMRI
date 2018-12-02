@@ -16,6 +16,7 @@ public class ConnectionConfigXmlTest extends jmri.jmrix.configurexml.AbstractSer
     // The minimal setup for log4J
     @Before
     public void setUp() {
+        System.err.println("==== Start setup");
         JUnitUtil.setUp();
         xmlAdapter = new ConnectionConfigXml();
         cc = new ConnectionConfig();
@@ -27,5 +28,6 @@ public class ConnectionConfigXmlTest extends jmri.jmrix.configurexml.AbstractSer
         JUnitUtil.tearDown();
         xmlAdapter = null;
         cc = null;
+        System.err.println("==== Teardown done");
     }
 }
