@@ -13,6 +13,8 @@ import jmri.InstanceManager;
 import jmri.jmris.json.JsonServerPreferences;
 import org.eclipse.jetty.websocket.api.Session;
 import org.junit.Assert;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * JsonConnection that retains sent messages for unit testing.
@@ -70,6 +72,7 @@ public class JsonMockConnection extends JsonConnection {
                     Assert.fail(ex.getMessage());
                 }
             }
+            log.warn("json send msg {}", message);
             this.messages.add(message);
         } else {
             // use a null message as the key to clear the list of messages
@@ -123,4 +126,7 @@ public class JsonMockConnection extends JsonConnection {
     public boolean isThrowIOException() {
         return this.throwIOException;
     }
+
+    private final static Logger log = LoggerFactory.getLogger(JsonMockConnection.class);
+
 }

@@ -19,6 +19,8 @@ import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -74,6 +76,7 @@ public class JsonRosterSocketServiceTest {
         });
         // list the groups in a JSON message for assertions
         this.connection.sendMessage((JsonNode) null);
+        log.warn("clear -1");
         instance.onMessage(JsonRoster.ROSTER_GROUPS, this.connection.getObjectMapper().createObjectNode(), JSON.GET, Locale.ENGLISH);
         JsonNode message = this.connection.getMessage();
         Assert.assertEquals("Single message sent", 1, this.connection.getMessages().size());
@@ -84,6 +87,7 @@ public class JsonRosterSocketServiceTest {
         Assert.assertTrue("Contains group AllEntries", message.findValuesAsText(JSON.NAME).contains(Roster.allEntries(Locale.ENGLISH)));
         // add a roster group and verify message sent by listener
         this.connection.sendMessage((JsonNode) null);
+        log.warn("clear 0");
         Roster.getDefault().addRosterGroup("NewRosterGroup");
         Assert.assertEquals("Single message sent", 1, this.connection.getMessages().size());
         message = this.connection.getMessage();
@@ -94,6 +98,7 @@ public class JsonRosterSocketServiceTest {
         Assert.assertTrue("Contains group NewRosterGroup", message.findValuesAsText(JSON.NAME).contains("NewRosterGroup"));
         // rename a roster group and verify message sent by listener
         this.connection.sendMessage((JsonNode) null);
+        log.warn("clear 1");
         Roster.getDefault().getRosterGroups().get("NewRosterGroup").setName("AgedRosterGroup");
         Assert.assertEquals("Single message sent", 1, this.connection.getMessages().size());
         message = this.connection.getMessage();
@@ -105,6 +110,8 @@ public class JsonRosterSocketServiceTest {
         Assert.assertFalse("Contains group NewRosterGroup", message.findValuesAsText(JSON.NAME).contains("NewRosterGroup"));
         // remove a roster group and verify message sent by listener
         this.connection.sendMessage((JsonNode) null);
+        log.warn("clear 2");
+
         Roster.getDefault().removeRosterGroup(Roster.getDefault().getRosterGroups().get("AgedRosterGroup"));
         Assert.assertEquals("Single message sent", 1, this.connection.getMessages().size());
         message = this.connection.getMessage();
@@ -116,6 +123,7 @@ public class JsonRosterSocketServiceTest {
         Assert.assertFalse("Contains group NewRosterGroup", message.findValuesAsText(JSON.NAME).contains("NewRosterGroup"));
         // Set unknown roster group directly as attribute of RosterEntry
         this.connection.sendMessage((JsonNode) null);
+        log.warn("clear 3");
         RosterEntry re = Roster.getDefault().getEntryForId("testEntry1");
         Assert.assertEquals("instance is listening to RosterEntry", 3, re.getPropertyChangeListeners().length);
         re.putAttribute(Roster.ROSTER_GROUP_PREFIX + "attribute", "yes");
@@ -130,6 +138,7 @@ public class JsonRosterSocketServiceTest {
             return Roster.getDefault().getRosterGroupList().contains("NewRosterGroup");
         }, "Roster Group was not added");
         this.connection.sendMessage((JsonNode) null); // clear out messages
+        log.warn("clear 4");
         re.putAttribute(Roster.ROSTER_GROUP_PREFIX + "NewRosterGroup", "yes"); // add new group to roster entry
         // wait for all expected messages to be sent before testing messages are as expected
         JUnitUtil.waitFor(() -> {
@@ -146,6 +155,7 @@ public class JsonRosterSocketServiceTest {
                 values.toArray(new String[5]));
         // Remove known roster group directly as attribute of RosterEntry
         this.connection.sendMessage((JsonNode) null); // clear out messages
+        log.warn("clear 5");
         re.deleteAttribute(Roster.ROSTER_GROUP_PREFIX + "NewRosterGroup"); // remove group from roster entry
         // wait for all expected messages to be sent before testing messages are as expected
         JUnitUtil.waitFor(() -> {
@@ -328,5 +338,7 @@ public class JsonRosterSocketServiceTest {
             Assert.assertEquals(1, entry.getPropertyChangeListeners().length);
         });
     }
+
+    private final static Logger log = LoggerFactory.getLogger(JsonRosterSocketServiceTest.class);
 
 }
