@@ -11,6 +11,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
+import java.util.concurrent.Semaphore;
+import java.util.concurrent.TimeUnit;
+
 import javax.annotation.Nonnull;
 import jmri.ConditionalManager;
 import jmri.ConfigureManager;
@@ -70,6 +73,7 @@ import jmri.util.prefs.JmriUserInterfaceConfigurationProvider;
 import org.apache.log4j.Level;
 import org.junit.Assert;
 import org.netbeans.jemmy.FrameWaiter;
+import org.netbeans.jemmy.QueueTool;
 import org.netbeans.jemmy.TestOut;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -152,6 +156,15 @@ public class JUnitUtil {
      * Set from the jmri.util.JUnitUtil.checkSequenceDumpsStack environment variable.
      */
     static boolean checkSequenceDumpsStack =    Boolean.getBoolean("jmri.util.JUnitUtil.checkSequenceDumpsStack"); // false unless set true
+
+    /**
+     * Adds a special check upon each teardown that fails when the test left work running on the
+     * GUI thread.
+     * <p>
+     * Set from the jmri.util.JUnitUtil.checkJemmyInEachTest environment variable.
+     */
+    static boolean checkJemmyUponTearDown = Boolean.getBoolean("jmri.util.JUnitUtil" +
+            ".checkJemmyInEachTest");
 
     static private int threadCount = 0;
     
@@ -281,7 +294,25 @@ public class JUnitUtil {
         
         // Optionally, check that no threads were left running (could be controlled by environment var?)
         // checkThreads(false);  // true means stop on 1st extra thread
-
+        if (checkJemmyUponTearDown) {
+            final Semaphore sem = new Semaphore(0);
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    new QueueTool().waitEmpty(500);
+                    sem.release();
+                }
+            }).start();
+            try {
+                if (!sem.tryAcquire(1000, TimeUnit.MILLISECONDS)) {
+                    System.err.println("Jemmy exit wait failed for test " + getTestClassName());
+                    System.exit(1);
+                    Assert.fail("Jemmy is not empty after this test.");
+                }
+            } catch (InterruptedException e) {
+                // ignore.
+            }
+        }
     }
 
     /**
