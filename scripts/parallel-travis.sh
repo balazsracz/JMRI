@@ -18,6 +18,7 @@ mvn verify -U -P travis-coverage --batch-mode \
         -Dsurefire.runOrder=${RUN_ORDER} \
         -Dsurefire.forkCount="24" \
         -Dant.jvm.args="-Djava.awt.headless=${HEADLESS}" \
+        -Djmri.util.JUnitUtil.checkJemmyInEachTest=true \
         -Djava.awt.headless=${HEADLESS} \
         -Dcucumber.options="--tags 'not @Ignore'"
 
