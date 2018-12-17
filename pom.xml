@@ -311,9 +311,9 @@
                     <useSystemClassLoader>true</useSystemClassLoader>
                     <useManifestOnlyJar>false</useManifestOnlyJar>
                     <forkCount>4C</forkCount>
-                    <!-- uncomment to force each test into new context (DO NOT attempt on CI servers) -->
+                    <!-- uncomment to force each test into new context (DO NOT attempt on CI servers)
                     <reuseForks>false</reuseForks>
-                    <!-- -->
+                    -->
                     <dependencies>
                         <dependency>
                             <groupId>org.apache.maven.surefire</groupId>
