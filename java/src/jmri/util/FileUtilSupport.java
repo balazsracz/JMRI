@@ -20,6 +20,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
+import java.lang.management.ManagementFactory;
 import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -603,6 +604,9 @@ public class FileUtilSupport extends Bean {
     public String getPreferencesPath() {
         // return jmri.prefsdir property if present
         String jmriPrefsDir = System.getProperty("jmri.prefsdir", ""); // NOI18N
+        if (jmriPrefsDir.contains("JVMUNIQUEID")) {
+            jmriPrefsDir = jmriPrefsDir.replace("JVMUNIQUEID", ManagementFactory.getRuntimeMXBean().getName());
+        }
         if (!jmriPrefsDir.isEmpty()) {
             try {
                 return new File(jmriPrefsDir).getCanonicalPath() + File.separator;
