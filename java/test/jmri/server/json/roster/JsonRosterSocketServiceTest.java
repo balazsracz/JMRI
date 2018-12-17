@@ -77,7 +77,7 @@ public class JsonRosterSocketServiceTest {
         this.connection.sendMessage((JsonNode) null);
         instance.onMessage(JsonRoster.ROSTER_GROUPS, this.connection.getObjectMapper().createObjectNode(), JSON.GET, Locale.ENGLISH);
         JsonNode message = this.connection.getMessage();
-        Assert.assertEquals("Single message sent", 1, this.connection.getMessages().size());
+        Assert.assertEquals("Single message sent " + this.connection.getMessages(), 1, this.connection.getMessages().size());
         Assert.assertNotNull("Message was sent", message);
         Assert.assertTrue("Message is array", message.isArray());
         Assert.assertEquals("Two groups exist", 2, message.size());
@@ -87,7 +87,7 @@ public class JsonRosterSocketServiceTest {
         // add a roster group and verify message sent by listener
         this.connection.sendMessage((JsonNode) null);
         Roster.getDefault().addRosterGroup("NewRosterGroup");
-        Assert.assertEquals("Single message sent", 1, this.connection.getMessages().size());
+        Assert.assertEquals("Single message sent" + this.connection.getMessages(), 1, this.connection.getMessages().size());
         message = this.connection.getMessage();
         Assert.assertNotNull("Message was sent", message);
         Assert.assertEquals("Three groups exist", 3, message.size());
@@ -98,7 +98,7 @@ public class JsonRosterSocketServiceTest {
         // rename a roster group and verify message sent by listener
         this.connection.sendMessage((JsonNode) null);
         Roster.getDefault().getRosterGroups().get("NewRosterGroup").setName("AgedRosterGroup");
-        Assert.assertEquals("Single message sent", 1, this.connection.getMessages().size());
+        Assert.assertEquals("Single message sent" + this.connection.getMessages(), 1, this.connection.getMessages().size());
         message = this.connection.getMessage();
         Assert.assertNotNull("Message was sent", message);
         Assert.assertEquals("Three groups exist", 3, message.size());
@@ -110,7 +110,7 @@ public class JsonRosterSocketServiceTest {
         // remove a roster group and verify message sent by listener
         this.connection.sendMessage((JsonNode) null);
         Roster.getDefault().removeRosterGroup(Roster.getDefault().getRosterGroups().get("AgedRosterGroup"));
-        Assert.assertEquals("Single message sent", 1, this.connection.getMessages().size());
+        Assert.assertEquals("Single message sent" + this.connection.getMessages(), 1, this.connection.getMessages().size());
         message = this.connection.getMessage();
         Assert.assertNotNull("Message was sent", message);
         Assert.assertEquals("Two groups exist", 2, message.size());
@@ -127,7 +127,7 @@ public class JsonRosterSocketServiceTest {
                 JUnitUtil.waitFor(() -> {
             return this.connection.getMessages().size() >= 1;
         }, "Expected message not sent");
-        Assert.assertEquals("One message sent", 1, this.connection.getMessages().size());
+        Assert.assertEquals("One message sent" + this.connection.getMessages(), 1, this.connection.getMessages().size());
         Assert.assertEquals("Message contains rosterEntry", JsonRoster.ROSTER_ENTRY, this.connection.getMessage().path(JSON.TYPE).asText());
 
         // Set known roster group directly as attribute of RosterEntry
@@ -143,7 +143,7 @@ public class JsonRosterSocketServiceTest {
         }, "Three expected messages not sent");
         // Sent updated rosterEntry, rosterGroup, array of rosterGroup
         ArrayNode messages = this.connection.getMessages();
-        Assert.assertEquals("3 messages sent", 3, messages.size());
+        Assert.assertEquals("3 messages sent" + this.connection.getMessages(), 3, messages.size());
         // Check that 5 top-level types are in the 3 messages
         List<String> values = messages.findValuesAsText("type");
         values.sort(null); // sort because message order is non-deterministic
@@ -160,7 +160,7 @@ public class JsonRosterSocketServiceTest {
         }, "Three expected messages not sent");
         // Sent updated rosterEntry, rosterGroup, array of rosterGroup
         messages = this.connection.getMessages();
-        Assert.assertEquals("3 messages sent", 3, messages.size());
+        Assert.assertEquals("3 messages sent" + this.connection.getMessages(), 3, messages.size());
         // Check that 5 top-level types are in the 3 messages
         values = messages.findValuesAsText("type");
         values.sort(null); // sort because message order is non-deterministic
