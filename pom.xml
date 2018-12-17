@@ -302,7 +302,7 @@
                     </excludes>
                     <systemPropertyVariables>
                         <jmri.path.program>${basedir}</jmri.path.program>
-                        <jmri.prefsdir>${basedir}/temp</jmri.prefsdir>
+                        <jmri.prefsdir>${basedir}/temp/prefsJVMUNIQUEID</jmri.prefsdir>
                         <jinput.plugins>net.bobis.jinput.hidraw.HidRawEnvironmentPlugin</jinput.plugins>
                     </systemPropertyVariables>
                     <trimStackTrace>false</trimStackTrace>
@@ -310,7 +310,7 @@
                     <argLine>@{argLine} -Djava.security.manager -Djava.security.policy=${basedir}/lib/security.policy</argLine>
                     <useSystemClassLoader>true</useSystemClassLoader>
                     <useManifestOnlyJar>false</useManifestOnlyJar>
-                    <forkCount>48</forkCount>
+                    <forkCount>4C</forkCount>
                     <!-- uncomment to force each test into new context (DO NOT attempt on CI servers)
                     <reuseForks>false</reuseForks>
                     -->
